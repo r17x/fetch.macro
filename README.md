@@ -38,7 +38,7 @@ const fetchByUrl = (opts) => fetch("/api/v1/ping", opts);
 It also works as a `tagged template` literal:
 
 ```javascript
-import f from "../src/fetch.macro";
+import f from "fetch.macro";
 const fetchByUrl = f`/api/v1/ping`;
 ```
 
