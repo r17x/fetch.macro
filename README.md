@@ -5,14 +5,18 @@
 
 ---
 
+<div align="center">
+
 <!-- prettier-ignore-start -->
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/r17x/fetch.macro/release/main)
-![Codecov branch](https://img.shields.io/codecov/c/github/r17x/fetch.macro/main)
-![npm](https://img.shields.io/npm/v/fetch.macro)
-![npm downloads](https://img.shields.io/npm/dw/fetch.macro)
-![License](https://img.shields.io/github/license/r17x/fetch.macro)
-![GitHub contributors (via allcontributors.org)](https://img.shields.io/github/all-contributors/r17x/fetch.macro/main)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/r17x/fetch.macro/release/main)](https://github.com/r17x/fetch.macro/actions/workflows/release.yml?query=branch%3Amain+)
+[![Codecov branch](https://img.shields.io/codecov/c/github/r17x/fetch.macro/main)](https://app.codecov.io/gh/r17x/fetch.macro)
+[![npm](https://img.shields.io/npm/v/fetch.macro)](https://www.npmjs.com/package/fetch.macro/v/latest)
+[![npm downloads](https://img.shields.io/npm/dw/fetch.macro)](https://www.npmjs.com/package/fetch.macro/v/latest)
+[![License](https://img.shields.io/github/license/r17x/fetch.macro)](https://github.com/r17x/fetch.macro/blob/main/LICENSE)
+[![GitHub contributors (via allcontributors.org)](https://img.shields.io/github/all-contributors/r17x/fetch.macro/main)](https://github.com/r17x/fetch.macro#contributors)
 <!-- prettier-ignore-end -->
+
+</div>
 
 ## Usage
 
