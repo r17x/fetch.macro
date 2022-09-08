@@ -48,6 +48,8 @@ module.exports = createMacro(({ babel: { types: t, template }, references: { def
           }),
         );
       }
+    } else {
+      parentPath.parentPath.remove();
     }
   });
 });

@@ -52,4 +52,20 @@ createTests("fetch", [
         fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts);
     `,
   },
+  {
+    title: "fetch with url empty",
+    code: `
+      import f from '../src/fetch.macro'
+      const fetchProject = f\`\`;
+    `,
+    output: "",
+  },
+  {
+    title: "fetch with url empty",
+    code: `
+      import f from '../src/fetch.macro'
+      const fetchProject = f.x;
+    `,
+    output: "",
+  },
 ]);
