@@ -22,6 +22,8 @@ Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdod
 
 ### Example
 
+#### Basic
+
 Given the following `Input`:
 
 ```javascript
@@ -43,6 +45,22 @@ const fetchByUrl = f`/api/v1/ping`;
 ```
 
 That will produce the same output as the function version.
+
+#### Nested
+
+Given the following `Input`:
+
+```javascript
+import f from "fetch.macro";
+const fetchProject = f`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+Babel will produce the following `Output`:
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts);
+```
 
 ## License
 
