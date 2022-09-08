@@ -88,7 +88,7 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://rin.rocks"><img src="https://avatars.githubusercontent.com/u/16365952?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RiN</b></sub></a><br /><a href="#ideas-r17x" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-r17x" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+      <td align="center"><a href="https://rin.rocks"><img src="https://avatars.githubusercontent.com/u/16365952?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RiN</b></sub></a><br /><a href="#ideas-r17x" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-r17x" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#tool-r17x" title="Tools">🔧</a></td>
     </tr>
   </tobdy>
 </table>
