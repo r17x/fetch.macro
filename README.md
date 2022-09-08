@@ -85,6 +85,13 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://rin.rocks"><img src="https://avatars.githubusercontent.com/u/16365952?v=4?s=100" width="100px;" alt=""/><br /><sub><b>RiN</b></sub></a><br /><a href="#ideas-r17x" title="Ideas, Planning, & Feedback">🤔</a></td>
+    </tr>
+  </tobdy>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
