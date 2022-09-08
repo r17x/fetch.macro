@@ -1,6 +1,6 @@
 {
   "name": "fetch.macro",
-  "description": "write fetch function with babel.macros",
+  "description": "Allows you to build fetcher function by URL at compile-time.",
   "author": "r17x <hi@rin.rocks>",
   "homepage": "https://github.com/r17x/fetch.macro",
   "repository": "https://github.com/r17x/fetch.macro",
