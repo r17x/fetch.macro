@@ -1,0 +1,14 @@
+{
+  "projectName": "fetch.macro",
+  "projectOwner": "r17x",
+  "imageSize": 100,
+  "commit": false,
+  "contributorsPerLine": 7,
+  "repoHost": "https://github.com",
+  "repoType": "github",
+  "skipCi": false,
+  "files": [
+    "README.md"
+  ],
+  "contributors": []
+}
