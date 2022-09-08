@@ -10,5 +10,15 @@
   "files": [
     "README.md"
   ],
-  "contributors": []
+  "contributors": [
+    {
+      "login": "r17x",
+      "name": "RiN",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16365952?v=4",
+      "profile": "https://rin.rocks",
+      "contributions": [
+        "ideas"
+      ]
+    }
+  ]
 }
