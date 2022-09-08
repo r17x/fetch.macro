@@ -10,5 +10,15 @@
   "files": [
     "README.md"
   ],
-  "contributors": []
+  "contributors": [
+    {
+      "login": "nyancodeid",
+      "name": "Ryan Aunur Rassyid",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24630806?v=4",
+      "profile": "https://blog.nyan.my.id",
+      "contributions": [
+        "example"
+      ]
+    }
+  ]
 }
