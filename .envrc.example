@@ -1,0 +1,3 @@
+use nix
+
+export PATH="$HOME/.cargo/bin:$PATH"
