@@ -34,7 +34,10 @@ jobs:
       - uses: ./.github/actions/setup-node
 
       - name: run test
-        run: yarn test
+        run: yarn test --collectCoverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
 
   release:
     needs:
