@@ -20,6 +20,26 @@
 
 Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdodds/babel-plugin-macros) and then use `fetch.macro`.
 
+### Vite
+
+To be able to use these macros in your [Vite](https://vitejs.dev/) project, you only need install [`vite-plugin-babel-macros`](https://github.com/itsMapleLeaf/vite-plugin-babel-macros) and add some configuration in `vite.config.js`. And it just work.
+
+```
+$ npm i -D vite-plugin-babel-macros
+```
+
+```js
+import MacrosPlugin from "vite-plugin-babel-macros";
+
+export default {
+  // ...
+  plugins: [
+    // ...
+    MacrosPlugin(),
+  ],
+};
+```
+
 ### Example
 
 #### Basic
