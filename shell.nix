@@ -11,12 +11,10 @@ pkgs.mkShell {
 
   buildInputs = with pkgs; [
     python27
-    pkgconfig
-    openssl
     (rust-bin.stable.latest.minimal.override {
+      extensions = [ "rustc" ];
       targets = [ "wasm32-wasi" ];
     })
-    libgit2
   ];
 
   packages = with pkgs; [
