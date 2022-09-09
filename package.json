@@ -18,6 +18,8 @@
     "prepare": "husky install",
     "lint": "eslint",
     "format": "prettier --write --ignore-unknown",
+    "swc:build": "cd swc && cargo build-wasi --release",
+    "swc:test": "cd swc && cargo test",
     "test": "jest"
   },
   "prettier": {
