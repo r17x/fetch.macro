@@ -13,8 +13,9 @@ pkgs.mkShell {
     python27
     pkgconfig
     openssl
-    rust-bin.stable.latest.default
-    rustup
+    (rust-bin.stable.latest.minimal.override {
+      targets = [ "wasm32-wasi" ];
+    })
     libgit2
   ];
 
