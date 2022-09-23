@@ -3,6 +3,7 @@
   "projectOwner": "r17x",
   "imageSize": 100,
   "commit": false,
+  "commitConvention": "angular",
   "contributorsPerLine": 7,
   "repoHost": "https://github.com",
   "repoType": "github",
