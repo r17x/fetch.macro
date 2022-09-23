@@ -46,6 +46,12 @@ export default {
 
 #### Basic
 
+Run one of the following command inside your project directory to install the package:
+```
+$ npm i fetch.macro
+or
+$ yarn add fetch.macro 
+```
 Given the following `Input`:
 
 ```javascript
