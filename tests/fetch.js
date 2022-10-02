@@ -68,4 +68,16 @@ createTests("fetch", [
     `,
     output: "",
   },
+  // fetchText
+  {
+    title: "fetchText with url params",
+    code: `
+      import {fetchText} from '../src/fetch.macro'
+      const fetchProject = fetchText\`/api/v1/user/:id/project/:projectId/:others\`;
+    `,
+    output: `
+      const fetchProject = ({ id, projectId, others, ...opts }) =>
+        fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.text());
+    `,
+  },
 ]);

@@ -1,6 +1,13 @@
 <div align="center">
-<h1>fetch.macro</h1>
+<h1 id="toc">fetch.macro</h1>
 <p>Allows you to build fetcher function by URL at compile-time.</p>
+
+<p align="center">
+  <a href="#usage">Usage</a>  • 
+  <a href="#api">API</a>  • 
+  <a href="#contributors">Contributors</a> 
+</p>
+
 </div>
 
 ---
@@ -20,7 +27,11 @@
 
 ## Usage
 
+[[Back to the Table of Contents] ↑](#toc)
+
 Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdodds/babel-plugin-macros) and then use `fetch.macro`.
+
+> Some project that build with `create-react-app` doesn't need extra setup for `babel-plugin-macros`.
 
 ### Vite
 
@@ -47,11 +58,13 @@ export default {
 #### Basic
 
 Run one of the following command inside your project directory to install the package:
+
 ```
 $ npm i fetch.macro
 or
-$ yarn add fetch.macro 
+$ yarn add fetch.macro
 ```
+
 Given the following `Input`:
 
 ```javascript
@@ -90,7 +103,33 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts);
 ```
 
+## API
+
+[[Back to the Table of Contents] ↑](#toc)
+
+### Default
+
+It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.
+
+```
+import f from 'fetch.macro'
+
+const fetchByUrl = f("/api/v1/ping");
+```
+
+### fetchText
+
+It will be produce a code for fetch function with URL by input and return [**response text**](https://webidl.spec.whatwg.org/#idl-USVString).
+
+```
+import { fetchText } from 'fetch.macro'
+
+const fetchLicense = fetchText("https://raw.githubusercontent.com/r17x/fetch.macro/main/LICENSE");
+```
+
 ## Contributors
+
+[[Back to the Table of Contents] ↑](#toc)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
