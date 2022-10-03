@@ -80,4 +80,16 @@ createTests("fetch", [
         fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.text());
     `,
   },
+  // fetchJson
+  {
+    title: "fetchJson with url params",
+    code: `
+      import {fetchJson} from '../src/fetch.macro'
+      const fetchProject = fetchJson\`/api/v1/user/:id/project/:projectId/:others\`;
+    `,
+    output: `
+      const fetchProject = ({ id, projectId, others, ...opts }) =>
+        fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.json());
+    `,
+  },
 ]);
