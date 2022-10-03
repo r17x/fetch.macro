@@ -111,7 +111,7 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 
 It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.
 
-```
+```javascript
 import f from 'fetch.macro'
 
 const fetchByUrl = f("/api/v1/ping");
@@ -121,7 +121,7 @@ const fetchByUrl = f("/api/v1/ping");
 
 It will be produce a code for fetch function with URL by input and return [**response text**](https://webidl.spec.whatwg.org/#idl-USVString).
 
-```
+```javascript
 import { fetchText } from 'fetch.macro'
 
 const fetchLicense = fetchText("https://raw.githubusercontent.com/r17x/fetch.macro/main/LICENSE");
@@ -131,7 +131,7 @@ const fetchLicense = fetchText("https://raw.githubusercontent.com/r17x/fetch.mac
 
 It will be produce a code for fetch function with URL by input and return [**response json**](https://fetch.spec.whatwg.org/#dom-body-json).
 
-```
+```javascript
 import { fetchJson } from 'fetch.macro'
 
 const fetchUsers = fetchJson("https://reqres.in/api/users");
