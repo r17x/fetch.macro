@@ -161,6 +161,7 @@ const fetchUsers = fetchBlob("https://reqres.in/api/users");
       <td align="center"><a href="https://blog.nyan.my.id"><img src="https://avatars.githubusercontent.com/u/24630806?v=4?s=100" width="100px;" alt="Ryan Aunur Rassyid"/><br /><sub><b>Ryan Aunur Rassyid</b></sub></a><br /><a href="#example-nyancodeid" title="Examples">💡</a></td>
       <td align="center"><a href="https://vadhe.dev/"><img src="https://avatars.githubusercontent.com/u/36479850?v=4?s=100" width="100px;" alt="Rivaldi Putra"/><br /><sub><b>Rivaldi Putra</b></sub></a><br /><a href="#example-vadhe" title="Examples">💡</a></td>
       <td align="center"><a href="https://liostech.id"><img src="https://avatars.githubusercontent.com/u/30402431?v=4?s=100" width="100px;" alt="Ibrahim Hanif"/><br /><sub><b>Ibrahim Hanif</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=ibrahim4529" title="Code">💻</a> <a href="#example-ibrahim4529" title="Examples">💡</a></td>
+      <td align="center"><a href="https://lazycatlabs.com"><img src="https://avatars.githubusercontent.com/u/1531684?v=4?s=100" width="100px;" alt="Mudassir"/><br /><sub><b>Mudassir</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=Lzyct" title="Code">💻</a> <a href="#example-Lzyct" title="Examples">💡</a></td>
     </tr>
   </tbody>
   <tfoot>
