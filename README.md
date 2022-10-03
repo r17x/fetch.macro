@@ -127,6 +127,16 @@ import { fetchText } from 'fetch.macro'
 const fetchLicense = fetchText("https://raw.githubusercontent.com/r17x/fetch.macro/main/LICENSE");
 ```
 
+### fetchJson
+
+It will be produce a code for fetch function with URL by input and return [**response json**](https://fetch.spec.whatwg.org/#dom-body-json).
+
+```
+import { fetchJson } from 'fetch.macro'
+
+const fetchLicense = fetchJson("https://reqres.in/api/users");
+```
+
 ## Contributors
 
 [[Back to the Table of Contents] ↑](#toc)
