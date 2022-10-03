@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/r17x/fetch.macro/compare/v1.2.0...v1.3.0) (2022-10-03)
+
+### Features
+
+- **fetchText:** add fetchJson API for produce fetch for json response ([#24](https://github.com/r17x/fetch.macro/issues/24)) ([c2cbbf2](https://github.com/r17x/fetch.macro/commit/c2cbbf2154f2837552e3b2e82f94c0927171dc91))
+
 # [1.2.0](https://github.com/r17x/fetch.macro/compare/v1.1.1...v1.2.0) (2022-10-02)
 
 ### Features

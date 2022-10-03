@@ -4,7 +4,7 @@
   "author": "r17x <hi@rin.rocks>",
   "homepage": "https://github.com/r17x/fetch.macro",
   "repository": "https://github.com/r17x/fetch.macro",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "keywords": [
     "babel-plugin-macros",
     "fetch"
