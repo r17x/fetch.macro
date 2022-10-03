@@ -1,3 +1,9 @@
+# [1.4.0](https://github.com/r17x/fetch.macro/compare/v1.3.0...v1.4.0) (2022-10-03)
+
+### Features
+
+- **fetchBlob:** add fetchBlob API for produce fetch for blob response ([#28](https://github.com/r17x/fetch.macro/issues/28)) ([962ed11](https://github.com/r17x/fetch.macro/commit/962ed11bf63ac6d51614e4b0964af8aba1caf25c)), closes [#22](https://github.com/r17x/fetch.macro/issues/22)
+
 # [1.3.0](https://github.com/r17x/fetch.macro/compare/v1.2.0...v1.3.0) (2022-10-03)
 
 ### Features
