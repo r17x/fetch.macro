@@ -134,7 +134,7 @@ It will be produce a code for fetch function with URL by input and return [**res
 ```
 import { fetchJson } from 'fetch.macro'
 
-const fetchLicense = fetchJson("https://reqres.in/api/users");
+const fetchUsers = fetchJson("https://reqres.in/api/users");
 ```
 
 ## Contributors
