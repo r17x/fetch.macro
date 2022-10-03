@@ -40,6 +40,16 @@
       "contributions": [
         "example"
       ]
+    },
+    {
+      "login": "ibrahim4529",
+      "name": "Ibrahim Hanif",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30402431?v=4",
+      "profile": "https://liostech.id",
+      "contributions": [
+        "code",
+        "example"
+      ]
     }
   ]
 }
