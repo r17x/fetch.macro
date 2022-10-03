@@ -1,0 +1,67 @@
+#!/usr/bin/env node
+const fs = require("fs/promises");
+const path = require("path");
+
+const { testCases } = require("../tests/test-cases");
+
+const caseAPI = testCases.filter(({ category }) => category === "API");
+const target = path.resolve("README.md");
+
+const replaceAPISection = (headingRange, newNodes) => () => (tree) => {
+  headingRange(tree, "API", (start, _nodes, end) => {
+    return [start].concat(newNodes).concat([end]);
+  });
+};
+
+const caseToMD =
+  (u, fromMD) =>
+  ({ name: title, description, code, output }) =>
+    [
+      u("heading", { depth: 3 }, [u("text", title)]),
+      u("paragraph", fromMD(description || "").children),
+      u("heading", { depth: 4 }, [u("text", "Input")]),
+      u("code", {
+        lang: "javascript",
+        value: code
+          .trim()
+          .replace(/\s{2,}/g, "\n")
+          .replace(/\t/gm, ""),
+      }),
+      u("heading", { depth: 4 }, [u("text", "Output")]),
+      u("code", {
+        lang: "javascript",
+        value: output
+          .trim()
+          .replace(/\s{2,}/g, "\n")
+          .replace(/\t/gm, ""),
+      }),
+    ];
+
+Promise.all([
+  import("remark"),
+  import("remark-gfm"),
+  import("remark-prettier"),
+  import("unist-builder"),
+  import("mdast-util-heading-range"),
+  import("mdast-util-from-markdown"),
+  fs.readFile(target, { encoding: "utf8" }),
+])
+  .then(
+    ([
+      { remark },
+      { default: remarkGFM },
+      { default: remarkPrettier },
+      { u },
+      { headingRange },
+      { fromMarkdown },
+      input,
+    ]) => [remark, remarkGFM, remarkPrettier, u, headingRange, fromMarkdown, input],
+  )
+  .then(([remark, remarkGFM, remarkPrettier, u, headingRange, fromMarkdown, input]) =>
+    remark()
+      .use(remarkGFM)
+      .use(replaceAPISection(headingRange, caseAPI.flatMap(caseToMD(u, fromMarkdown))))
+      .use(remarkPrettier)
+      .process(input),
+  )
+  .then(({ value: data }) => fs.writeFile(target, data));

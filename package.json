@@ -32,6 +32,10 @@
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write",
+    "tests/test-cases.js": [
+      ".husky/generate-api-md",
+      "git add README.md"
+    ],
     "*.js": [
       "eslint --fix",
       "cross-env NODE_ENV=test jest --bail --findRelatedTests --passWithNoTests"
@@ -43,7 +47,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "tests/create-tests.js"
+      "tests/create-tests.js",
+      "tests/test-cases.js"
     ]
   },
   "peerDependencies": {
@@ -57,16 +62,22 @@
     "@semantic-release/changelog": "semantic-release/changelog",
     "@semantic-release/git": "10.0.1",
     "@semrel-extra/npm": "1.2.0",
-    "commitlint-config-squash-pr": "1.1.0",
     "babel-plugin-macros": "^3",
     "babel-plugin-tester": "^10",
+    "commitlint-config-squash-pr": "1.1.0",
     "cross-env": "^7",
     "eslint": "^8",
     "eslint-config-kdnj": "^2",
-    "prettier": "^2",
     "husky": "^8",
     "jest": "^29",
     "lint-staged": "^13",
-    "semantic-release": "19.0.2"
+    "mdast-util-from-markdown": "^1",
+    "mdast-util-heading-range": "^3",
+    "prettier": "^2",
+    "remark": "^14",
+    "remark-gfm": "^3",
+    "remark-prettier": "^2",
+    "semantic-release": "19.0.2",
+    "unist-builder": "^3"
   }
 }

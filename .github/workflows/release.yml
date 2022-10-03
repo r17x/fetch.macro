@@ -39,6 +39,9 @@ jobs:
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
 
+      - name: test run generator API markdown
+        run: .husky/generate-api-md
+
   release:
     needs:
       - validate

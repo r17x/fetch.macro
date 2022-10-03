@@ -15,19 +15,21 @@
 <div align="center">
 
 <!-- prettier-ignore-start -->
+
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/r17x/fetch.macro/release/main)](https://github.com/r17x/fetch.macro/actions/workflows/release.yml?query=branch%3Amain+)
 [![Codecov branch](https://img.shields.io/codecov/c/github/r17x/fetch.macro/main)](https://app.codecov.io/gh/r17x/fetch.macro)
 [![npm](https://img.shields.io/npm/v/fetch.macro)](https://www.npmjs.com/package/fetch.macro/v/latest)
 [![npm downloads](https://img.shields.io/npm/dw/fetch.macro)](https://www.npmjs.com/package/fetch.macro/v/latest)
 [![License](https://img.shields.io/github/license/r17x/fetch.macro)](https://github.com/r17x/fetch.macro/blob/main/LICENSE)
 [![GitHub contributors (via allcontributors.org)](https://img.shields.io/github/all-contributors/r17x/fetch.macro/main)](https://github.com/r17x/fetch.macro#contributors)
+
 <!-- prettier-ignore-end -->
 
 </div>
 
 ## Usage
 
-[[Back to the Table of Contents] ↑](#toc)
+[\[Back to the Table of Contents\] ↑](#toc)
 
 Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdodds/babel-plugin-macros) and then use `fetch.macro`.
 
@@ -37,9 +39,7 @@ Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdod
 
 To be able to use these macros in your [Vite](https://vitejs.dev/) project, you only need install [`vite-plugin-babel-macros`](https://github.com/itsMapleLeaf/vite-plugin-babel-macros) and add some configuration in `vite.config.js`. And it just work.
 
-```
-$ npm i -D vite-plugin-babel-macros
-```
+    $ npm i -D vite-plugin-babel-macros
 
 ```js
 import MacrosPlugin from "vite-plugin-babel-macros";
@@ -59,11 +59,9 @@ export default {
 
 Run one of the following command inside your project directory to install the package:
 
-```
-$ npm i fetch.macro
-or
-$ yarn add fetch.macro
-```
+    $ npm i fetch.macro
+    or
+    $ yarn add fetch.macro
 
 Given the following `Input`:
 
@@ -105,55 +103,85 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 
 ## API
 
-[[Back to the Table of Contents] ↑](#toc)
+### default
 
-### Default
-
-It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.
+#### Input
 
 ```javascript
-import f from 'fetch.macro'
-
+import f from "../src/fetch.macro";
 const fetchByUrl = f("/api/v1/ping");
+```
+
+#### Output
+
+```javascript
+const fetchByUrl = (opts) => fetch("/api/v1/ping", opts);
 ```
 
 ### fetchText
 
 It will be produce a code for fetch function with URL by input and return [**response text**](https://webidl.spec.whatwg.org/#idl-USVString).
 
-```javascript
-import { fetchText } from 'fetch.macro'
+#### Input
 
-const fetchLicense = fetchText("https://raw.githubusercontent.com/r17x/fetch.macro/main/LICENSE");
+```javascript
+import { fetchText } from "../src/fetch.macro";
+const fetchProject = fetchText`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+#### Output
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.text());
 ```
 
 ### fetchJson
 
 It will be produce a code for fetch function with URL by input and return [**response json**](https://fetch.spec.whatwg.org/#dom-body-json).
 
-```javascript
-import { fetchJson } from 'fetch.macro'
+#### Input
 
-const fetchUsers = fetchJson("https://reqres.in/api/users");
+```javascript
+import { fetchJson } from "../src/fetch.macro";
+const fetchProject = fetchJson`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+#### Output
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.json());
 ```
 
 ### fetchBlob
 
 It will be produce a code for fetch function with URL by input and return [**response blob**](https://fetch.spec.whatwg.org/#dom-body-blob).
 
-```javascript
-import { fetchBlob } from 'fetch.macro'
+#### Input
 
-const fetchUsers = fetchBlob("https://reqres.in/api/users");
+```javascript
+import { fetchBlob } from "../src/fetch.macro";
+const fetchProject = fetchBlob`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+#### Output
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.blob());
 ```
 
 ## Contributors
 
-[[Back to the Table of Contents] ↑](#toc)
+[\[Back to the Table of Contents\] ↑](#toc)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -170,6 +198,7 @@ const fetchUsers = fetchBlob("https://reqres.in/api/users");
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
