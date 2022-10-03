@@ -3,6 +3,8 @@ const testCases = [
   {
     title: "basic fetch",
     name: "default",
+    description:
+      "It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.",
     category: "API",
     code: `
       import f from '../src/fetch.macro'

@@ -105,6 +105,8 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 
 ### default
 
+It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.
+
 #### Input
 
 ```javascript
