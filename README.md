@@ -137,6 +137,16 @@ import { fetchJson } from 'fetch.macro'
 const fetchUsers = fetchJson("https://reqres.in/api/users");
 ```
 
+### fetchBlob
+
+It will be produce a code for fetch function with URL by input and return [**response blob**](https://fetch.spec.whatwg.org/#dom-body-blob).
+
+```javascript
+import { fetchBlob } from 'fetch.macro'
+
+const fetchUsers = fetchBlob("https://reqres.in/api/users");
+```
+
 ## Contributors
 
 [[Back to the Table of Contents] ↑](#toc)
@@ -154,7 +164,7 @@ const fetchUsers = fetchJson("https://reqres.in/api/users");
     </tr>
   </tbody>
   <tfoot>
-    
+
   </tfoot>
 </table>
 

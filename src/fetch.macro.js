@@ -15,9 +15,9 @@ const memberExpressionTemplate = (ref) =>
     [ref === "default"]: "",
     [ref === "fetchText"]: ".then(r => r.text())",
     [ref === "fetchJson"]: ".then(r => r.json())",
+    [ref === "fetchBlob"]: ".then(r => r.blob())",
     /**
      * @todo {https://github.com/r17x/fetch.macro/issues/22}
-     * - [ ] fetchBlob
      * - [ ] fetchArrayBuffer
      * - [ ] fetchFormData
      */
@@ -30,9 +30,9 @@ module.exports = createMacro(
       default: paths,
       fetchText,
       fetchJson,
+      fetchBlob,
       /**
        * @todo {https://github.com/r17x/fetch.macro/issues/22}
-       * - [ ] fetchBlob
        * - [ ] fetchArrayBuffer
        * - [ ] fetchFormData
        */
@@ -87,10 +87,10 @@ module.exports = createMacro(
     (paths || []).forEach(transform("default"));
     (fetchText || []).forEach(transform("fetchText"));
     (fetchJson || []).forEach(transform("fetchJson"));
+    (fetchBlob || []).forEach(transform("fetchBlob"));
     /**
      * @todo {https://github.com/r17x/fetch.macro/issues/22}
      * - [ ] fetchJson
-     * - [ ] fetchBlob
      * - [ ] fetchArrayBuffer
      * - [ ] fetchFormData
      */
