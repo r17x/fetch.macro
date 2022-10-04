@@ -192,13 +192,34 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.formData());
 ```
 
+### fetchArrayBuffer
+
+It will be produce a code for fetch function with URL by input and return [**response arrayBuffer**](https://fetch.spec.whatwg.org/#dom-body-arraybuffer).
+
+#### Input
+
+```javascript
+import { fetchArrayBuffer } from "../src/fetch.macro";
+const fetchProject = fetchArrayBuffer`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+#### Output
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.arrayBuffer());
+```
+
 ## Contributors
 
 [\[Back to the Table of Contents\] ↑](#toc)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -211,11 +232,12 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
     </tr>
   </tbody>
   <tfoot>
-    
+
   </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
