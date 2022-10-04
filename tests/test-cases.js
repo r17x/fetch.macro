@@ -119,6 +119,22 @@ const testCases = [
           fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.blob());
       `,
   },
+  // fetchFormData
+  {
+    title: "fetchFormData with url params",
+    name: "fetchFormData",
+    description:
+      "It will be produce a code for fetch function with URL by input and return [**response formData**](https://fetch.spec.whatwg.org/#dom-body-formdata).",
+    category: "API",
+    code: `
+        import {fetchFormData} from '../src/fetch.macro'
+        const fetchProject = fetchFormData\`/api/v1/user/:id/project/:projectId/:others\`;
+      `,
+    output: `
+        const fetchProject = ({ id, projectId, others, ...opts }) =>
+          fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.formData());
+      `,
+  },
 ];
 
 module.exports = { testCases };

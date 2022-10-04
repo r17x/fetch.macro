@@ -174,6 +174,24 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.blob());
 ```
 
+### fetchFormData
+
+It will be produce a code for fetch function with URL by input and return [**response formData**](https://fetch.spec.whatwg.org/#dom-body-formdata).
+
+#### Input
+
+```javascript
+import { fetchFormData } from "../src/fetch.macro";
+const fetchProject = fetchFormData`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+#### Output
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.formData());
+```
+
 ## Contributors
 
 [\[Back to the Table of Contents\] ↑](#toc)
