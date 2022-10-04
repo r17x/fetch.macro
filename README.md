@@ -208,6 +208,7 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
       <td align="center"><a href="https://liostech.id"><img src="https://avatars.githubusercontent.com/u/30402431?v=4?s=100" width="100px;" alt="Ibrahim Hanif"/><br /><sub><b>Ibrahim Hanif</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=ibrahim4529" title="Code">💻</a> <a href="#example-ibrahim4529" title="Examples">💡</a></td>
       <td align="center"><a href="https://lazycatlabs.com"><img src="https://avatars.githubusercontent.com/u/1531684?v=4?s=100" width="100px;" alt="Mudassir"/><br /><sub><b>Mudassir</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=Lzyct" title="Code">💻</a> <a href="#example-Lzyct" title="Examples">💡</a></td>
       <td align="center"><a href="http://mupinnn.github.io"><img src="https://avatars.githubusercontent.com/u/46535277?v=4?s=100" width="100px;" alt="Ahmad Muwaffaq"/><br /><sub><b>Ahmad Muwaffaq</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=mupinnn" title="Code">💻</a> <a href="#example-mupinnn" title="Examples">💡</a></td>
+      <td align="center"><a href="http://abdmmar.com"><img src="https://avatars.githubusercontent.com/u/50788123?v=4?s=100" width="100px;" alt="Abdullah Ammar"/><br /><sub><b>Abdullah Ammar</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=abdmmar" title="Code">💻</a> <a href="#example-abdmmar" title="Examples">💡</a></td>
     </tr>
   </tbody>
   <tfoot>
