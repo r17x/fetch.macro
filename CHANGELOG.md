@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/r17x/fetch.macro/compare/v1.4.0...v1.5.0) (2022-10-04)
+
+### Features
+
+- **fetchFormData:** add fetchFormData API for produce fetch for formData response ([#31](https://github.com/r17x/fetch.macro/issues/31)) ([08a8303](https://github.com/r17x/fetch.macro/commit/08a83036fde769c8e12ec54699963bcf14907b92)), closes [#22](https://github.com/r17x/fetch.macro/issues/22)
+
 # [1.4.0](https://github.com/r17x/fetch.macro/compare/v1.3.0...v1.4.0) (2022-10-03)
 
 ### Features
