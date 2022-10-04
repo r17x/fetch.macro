@@ -1,3 +1,9 @@
+# [1.6.0](https://github.com/r17x/fetch.macro/compare/v1.5.0...v1.6.0) (2022-10-04)
+
+### Features
+
+- **fetchArrayBuffer:** add fetchArrayBuffer API for produce fetch for arrayBuffer response ([#34](https://github.com/r17x/fetch.macro/issues/34)) ([1136e05](https://github.com/r17x/fetch.macro/commit/1136e059b168703f4dab8ae81f03d5705ee75c68)), closes [#22](https://github.com/r17x/fetch.macro/issues/22)
+
 # [1.5.0](https://github.com/r17x/fetch.macro/compare/v1.4.0...v1.5.0) (2022-10-04)
 
 ### Features
