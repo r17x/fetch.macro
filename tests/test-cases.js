@@ -135,6 +135,22 @@ const testCases = [
           fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.formData());
       `,
   },
+  // fetchArrayBuffer
+  {
+    title: "fetchArrayBuffer with url params",
+    name: "fetchArrayBuffer",
+    description:
+      "It will be produce a code for fetch function with URL by input and return [**response arrayBuffer**](https://fetch.spec.whatwg.org/#dom-body-arraybuffer).",
+    category: "API",
+    code: `
+        import {fetchArrayBuffer} from '../src/fetch.macro'
+        const fetchProject = fetchArrayBuffer\`/api/v1/user/:id/project/:projectId/:others\`;
+      `,
+    output: `
+        const fetchProject = ({ id, projectId, others, ...opts }) =>
+          fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.arrayBuffer());
+      `,
+  },
 ];
 
 module.exports = { testCases };
