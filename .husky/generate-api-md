@@ -13,28 +13,47 @@ const replaceAPISection = (headingRange, newNodes) => () => (tree) => {
   });
 };
 
+const table = (input, out) => `
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
+
+\`\`\`javascript
+${input
+  .trim()
+  .replace(/\s{2,}/g, "\n")
+  .replace(/\t/gm, "")
+  .replace(/\.\.\/src\//g, "")}
+\`\`\`
+
+</td>
+
+<td>
+
+\`\`\`javascript
+${out
+  .trim()
+  .replace(/\s{2,}/g, "\n")
+  .replace(/\t/gm, "")}
+\`\`\`
+
+</td>
+</tr>
+</table>
+
+`;
+
 const caseToMD =
   (u, fromMD) =>
   ({ name: title, description, code, output }) =>
     [
       u("heading", { depth: 3 }, [u("text", title)]),
       u("paragraph", fromMD(description || "").children),
-      u("heading", { depth: 4 }, [u("text", "Input")]),
-      u("code", {
-        lang: "javascript",
-        value: code
-          .trim()
-          .replace(/\s{2,}/g, "\n")
-          .replace(/\t/gm, ""),
-      }),
-      u("heading", { depth: 4 }, [u("text", "Output")]),
-      u("code", {
-        lang: "javascript",
-        value: output
-          .trim()
-          .replace(/\s{2,}/g, "\n")
-          .replace(/\t/gm, ""),
-      }),
+      u("html", { value: table(code, output) }),
     ];
 
 Promise.all([
