@@ -32,12 +32,6 @@ module.exports = {
     "@semantic-release/changelog",
     "@semrel-extra/npm",
     "@semantic-release/git",
-    [
-      "@semantic-release/github",
-      {
-        successComment: true,
-        failComment: false,
-      },
-    ],
+    "@semantic-release/github",
   ],
 };
