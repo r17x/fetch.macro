@@ -107,108 +107,180 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 
 It will be produce a code for fetch function with URL by input and return response that need to be manual handle the response.
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import f from "../src/fetch.macro";
+import f from "fetch.macro";
 const fetchByUrl = f("/api/v1/ping");
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchByUrl = (opts) => fetch("/api/v1/ping", opts);
 ```
 
+</td>
+</tr>
+</table>
+
 ### fetchText
 
 It will be produce a code for fetch function with URL by input and return [**response text**](https://webidl.spec.whatwg.org/#idl-USVString).
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import { fetchText } from "../src/fetch.macro";
+import { fetchText } from "fetch.macro";
 const fetchProject = fetchText`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.text());
 ```
 
+</td>
+</tr>
+</table>
+
 ### fetchJson
 
 It will be produce a code for fetch function with URL by input and return [**response json**](https://fetch.spec.whatwg.org/#dom-body-json).
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import { fetchJson } from "../src/fetch.macro";
+import { fetchJson } from "fetch.macro";
 const fetchProject = fetchJson`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.json());
 ```
 
+</td>
+</tr>
+</table>
+
 ### fetchBlob
 
 It will be produce a code for fetch function with URL by input and return [**response blob**](https://fetch.spec.whatwg.org/#dom-body-blob).
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import { fetchBlob } from "../src/fetch.macro";
+import { fetchBlob } from "fetch.macro";
 const fetchProject = fetchBlob`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.blob());
 ```
 
+</td>
+</tr>
+</table>
+
 ### fetchFormData
 
 It will be produce a code for fetch function with URL by input and return [**response formData**](https://fetch.spec.whatwg.org/#dom-body-formdata).
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import { fetchFormData } from "../src/fetch.macro";
+import { fetchFormData } from "fetch.macro";
 const fetchProject = fetchFormData`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.formData());
 ```
 
+</td>
+</tr>
+</table>
+
 ### fetchArrayBuffer
 
 It will be produce a code for fetch function with URL by input and return [**response arrayBuffer**](https://fetch.spec.whatwg.org/#dom-body-arraybuffer).
 
-#### Input
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
 
 ```javascript
-import { fetchArrayBuffer } from "../src/fetch.macro";
+import { fetchArrayBuffer } from "fetch.macro";
 const fetchProject = fetchArrayBuffer`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
-#### Output
+</td>
+
+<td>
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
   fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.arrayBuffer());
 ```
+
+</td>
+</tr>
+</table>
 
 ## Contributors
 
