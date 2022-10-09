@@ -295,8 +295,8 @@ It will be produce a code for fetch function with URL by input and return [**res
 <td>
 
 ```javascript
-import { fetchArrayBuffer } from "fetch.macro";
-const fetchProject = fetchArrayBuffer`/api/v1/user/:id/project/:projectId/:others`;
+import { fetchClone } from "fetch.macro";
+const fetchProject = fetchClone`/api/v1/user/:id/project/:projectId/:others`;
 ```
 
 </td>
@@ -305,7 +305,7 @@ const fetchProject = fetchArrayBuffer`/api/v1/user/:id/project/:projectId/:other
 
 ```javascript
 const fetchProject = ({ id, projectId, others, ...opts }) =>
-  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.arrayBuffer());
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.clone());
 ```
 
 </td>
