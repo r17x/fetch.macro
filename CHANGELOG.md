@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/r17x/fetch.macro/compare/v1.6.1...v1.7.0) (2022-10-09)
+
+### Features
+
+- **fetchClone:** add fetchClone API for produce fetch for cloned response ([#38](https://github.com/r17x/fetch.macro/issues/38)) ([d88c4f7](https://github.com/r17x/fetch.macro/commit/d88c4f75aca85251f67926a204766b2b2a9957de)), closes [#22](https://github.com/r17x/fetch.macro/issues/22)
+
 ## [1.6.1](https://github.com/r17x/fetch.macro/compare/v1.6.0...v1.6.1) (2022-10-04)
 
 # [1.6.0](https://github.com/r17x/fetch.macro/compare/v1.5.0...v1.6.0) (2022-10-04)
