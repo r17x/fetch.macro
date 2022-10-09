@@ -317,11 +317,8 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 [\[Back to the Table of Contents\] ↑](#toc)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
 <!-- prettier-ignore-start -->
-
 <!-- markdownlint-disable -->
-
 <table>
   <tbody>
     <tr>
@@ -333,14 +330,13 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
       <td align="center"><a href="http://mupinnn.github.io"><img src="https://avatars.githubusercontent.com/u/46535277?v=4?s=100" width="100px;" alt="Ahmad Muwaffaq"/><br /><sub><b>Ahmad Muwaffaq</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=mupinnn" title="Code">💻</a> <a href="#example-mupinnn" title="Examples">💡</a></td>
       <td align="center"><a href="http://abdmmar.com"><img src="https://avatars.githubusercontent.com/u/50788123?v=4?s=100" width="100px;" alt="Abdullah Ammar"/><br /><sub><b>Abdullah Ammar</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=abdmmar" title="Code">💻</a> <a href="#example-abdmmar" title="Examples">💡</a></td>
     </tr>
+    <tr>
+      <td align="center"><a href="https://afrianjunior.github.io"><img src="https://avatars.githubusercontent.com/u/13098072?v=4?s=100" width="100px;" alt="Afrian Junior"/><br /><sub><b>Afrian Junior</b></sub></a><br /><a href="https://github.com/r17x/fetch.macro/commits?author=afrianjunior" title="Code">💻</a> <a href="#example-afrianjunior" title="Examples">💡</a></td>
+    </tr>
   </tbody>
-  <tfoot>
-
-  </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
-
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
