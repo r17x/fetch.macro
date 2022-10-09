@@ -151,6 +151,22 @@ const testCases = [
           fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.arrayBuffer());
       `,
   },
+  // fetchClone
+  {
+    title: "fetchClone with url params",
+    name: "fetchClone",
+    description:
+      "It will be produce a code for fetch function with URL by input and return [**response cloned data**](https://developer.mozilla.org/en-US/docs/Web/API/Response/clone).",
+    category: "API",
+    code: `
+        import {fetchClone} from '../src/fetch.macro'
+        const fetchProject = fetchClone\`/api/v1/user/:id/project/:projectId/:others\`;
+      `,
+    output: `
+        const fetchProject = ({ id, projectId, others, ...opts }) =>
+          fetch(\`/api/v1/user/\${id}/project/\${projectId}/\${others}\`, opts).then((r) => r.clone());
+      `,
+  },
 ];
 
 module.exports = { testCases };

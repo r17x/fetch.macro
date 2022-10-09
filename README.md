@@ -282,6 +282,36 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 </tr>
 </table>
 
+### fetchClone
+
+It will be produce a code for fetch function with URL by input and return [**response cloned data**](https://developer.mozilla.org/en-US/docs/Web/API/Response/clone).
+
+<table>
+<tr>
+<td>Input</td>
+<td>Output</td>
+</tr>
+<tr>
+<td>
+
+```javascript
+import { fetchClone } from "fetch.macro";
+const fetchProject = fetchClone`/api/v1/user/:id/project/:projectId/:others`;
+```
+
+</td>
+
+<td>
+
+```javascript
+const fetchProject = ({ id, projectId, others, ...opts }) =>
+  fetch(`/api/v1/user/${id}/project/${projectId}/${others}`, opts).then((r) => r.clone());
+```
+
+</td>
+</tr>
+</table>
+
 ## Contributors
 
 [\[Back to the Table of Contents\] ↑](#toc)

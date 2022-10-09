@@ -10,7 +10,15 @@ const { createMacro } = require("babel-plugin-macros");
  * import { fetchText } from 'fetch.macro'
  * ```
  * */
-const REFERENCES = ["default", "fetchText", "fetchJson", "fetchBlob", "fetchFormData", "fetchArrayBuffer"];
+const REFERENCES = [
+  "default",
+  "fetchText",
+  "fetchJson",
+  "fetchBlob",
+  "fetchFormData",
+  "fetchArrayBuffer",
+  "fetchClone",
+];
 /**
  * @param {KeyValue} keyValue
  * @return {boolean}
@@ -50,6 +58,7 @@ const memberExpressionTemplate = (ref) =>
     [ref === REFERENCES[3]]: ".then(r => r.blob())",
     [ref === REFERENCES[4]]: ".then(r => r.formData())",
     [ref === REFERENCES[5]]: ".then(r => r.arrayBuffer())",
+    [ref === REFERENCES[6]]: ".then(r => r.clone())",
   }.true);
 
 /** @type { import('babel-plugin-macros').MacroHandler } */
