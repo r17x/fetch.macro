@@ -77,3 +77,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GIT_AUTHOR_EMAIL: "contact@evilfactorylabs.org"
+          GIT_COMMITTER_EMAIL: "contact@evilfactorylabs.org"
+          GIT_AUTHOR_NAME: "anakmagang"
+          GIT_COMMITTER_NAME: "anakmagang"
