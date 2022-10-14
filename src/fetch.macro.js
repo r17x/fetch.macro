@@ -39,11 +39,11 @@ const isValueHaveArgs = (val) => /:\w+/g.test(val);
  * @param {import('@babel/core').NodePath} path
  * @return {string?} value param when use with call expression or tagged template expression
  */
-const getValue = (t, path) =>
+const getValue = (path) =>
   ({
     [true]: () => null,
-    [t.isCallExpression(path)]: () => path.node.arguments[0].value,
-    [t.isTaggedTemplateExpression(path)]: () => path.node.quasi.quasis[0].value.cooked,
+    [path.isCallExpression()]: () => path.node.arguments[0].value,
+    [path.isTaggedTemplateExpression()]: () => path.node.quasi.quasis[0].value.cooked,
   }.true());
 
 /**
@@ -70,7 +70,7 @@ const fetchMacro = ({ babel: { types: t, template }, references }) => {
   const transform =
     (reference) =>
     ({ parentPath }) => {
-      const value = getValue(t, parentPath);
+      const value = getValue(parentPath);
       const memberExpression = memberExpressionTemplate(reference);
 
       if (value) {
