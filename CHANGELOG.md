@@ -1,3 +1,5 @@
+## [1.7.1](https://github.com/r17x/fetch.macro/compare/v1.7.0...v1.7.1) (2022-10-14)
+
 # [1.7.0](https://github.com/r17x/fetch.macro/compare/v1.6.1...v1.7.0) (2022-10-09)
 
 ### Features
