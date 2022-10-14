@@ -18,6 +18,9 @@ module.exports = {
       "@semantic-release/commit-analyzer",
       {
         preset: "angular",
+        presetConfig: {
+          types: [{ type: "refactor", section: "Code Improvements", hidden: false }],
+        },
         releaseRules: [
           { type: "docs", release: false },
           { type: "refactor", release: "patch" },
