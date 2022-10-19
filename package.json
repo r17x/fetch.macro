@@ -10,6 +10,9 @@
     "fetch"
   ],
   "main": "src/fetch.macro.js",
+  "files": [
+    "src/fetch.macro.js"
+  ],
   "license": "MIT",
   "scripts": {
     "prepare": "husky install",
