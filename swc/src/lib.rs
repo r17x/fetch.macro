@@ -1,16 +1,33 @@
 use swc_core::{
-    ecma::ast::Program,
     ecma::transforms::testing::test,
     ecma::visit::{as_folder, FoldWith, VisitMut},
+    ecma::ast::{Program, ModuleDecl, ModuleItem, TaggedTpl, ImportDecl},
     plugin::{plugin_transform, proxies::TransformPluginProgramMetadata},
 };
 
-pub struct TransformVisitor;
 
-impl VisitMut for TransformVisitor {
+pub struct FetchMacroVisitor;
+
+impl VisitMut for FetchMacroVisitor {
     // Implement necessary visit_mut_* methods for actual custom transform.
     // A comprehensive list of possible visitor methods can be found here:
     // https://rustdoc.swc.rs/swc_ecma_visit/trait.VisitMut.html
+    
+    // visit default import expression and transform to fetch function
+    // e.g f`URI`
+    fn visit_mut_tagged_tpl(&mut self, _n: &mut TaggedTpl){
+        unimplemented!();
+    }
+
+    // remove import source fetch.macro
+    fn visit_mut_module_items(&mut self, import_modules: &mut Vec<ModuleItem>) {
+        import_modules.retain(|m| match &m {
+            ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl {src, ..})) =>  &src.value != "fetch.macro",
+            _ => true,
+        });
+        import_modules.to_vec();
+    }
+
 }
 
 /// An example plugin function with macro support.
@@ -30,7 +47,7 @@ impl VisitMut for TransformVisitor {
 /// Refer swc_plugin_macro to see how does it work internally.
 #[plugin_transform]
 pub fn process_transform(program: Program, _metadata: TransformPluginProgramMetadata) -> Program {
-    program.fold_with(&mut as_folder(TransformVisitor))
+    program.fold_with(&mut as_folder(FetchMacroVisitor))
 }
 
 // An example to test plugin transform.
@@ -39,11 +56,11 @@ pub fn process_transform(program: Program, _metadata: TransformPluginProgramMeta
 // unless explicitly required to do so.
 test!(
     Default::default(),
-    |_| as_folder(TransformVisitor),
+    |_| as_folder(FetchMacroVisitor),
     boo,
     // Input codes
-    r#"import f from "fetch.macro"; const fetcher = f`/api/v1/ping`;"#,
+    r#"import f from "fetch.macro"; 
+const fetcher = f`/api/v1/ping`;"#,
     // Output codes after transformed with plugin
     r#"const fetcher = (opts) => fetch("/api/v1/ping", opts);"#
 );
-
