@@ -42,6 +42,15 @@ jobs:
       - name: test run generator API markdown
         run: .husky/generate-api-md
 
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          target: wasm32-wasi
+
+      - name: run test swc
+        run: yarn swc:build
+
   release:
     needs:
       - validate
