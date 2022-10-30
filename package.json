@@ -7,11 +7,18 @@
   "version": "1.7.2",
   "keywords": [
     "babel-plugin-macros",
+    "babel-plugins",
+    "swc-plugins",
     "fetch"
   ],
   "main": "src/fetch.macro.js",
+  "exports": {
+    ".": "./src/fetch.macro.js",
+    "./swc": "./swc/target/wasm32-wasi/release/swc_plugin_fetch_macro.wasm"
+  },
   "files": [
-    "src/fetch.macro.js"
+    "src/fetch.macro.js",
+    "swc/target/wasm32-wasi/release/swc_plugin_fetch_macro.wasm"
   ],
   "license": "MIT",
   "scripts": {
