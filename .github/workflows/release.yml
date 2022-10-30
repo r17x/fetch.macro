@@ -70,8 +70,8 @@ jobs:
           profile: minimal
           target: wasm32-wasi
 
-      - name: run build swc
-        run: yarn swc:build
+      - name: run build
+        run: yarn build
 
   release:
     needs:
