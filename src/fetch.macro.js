@@ -35,7 +35,6 @@ const isAllowedReference = ([k, v]) => REFERENCES.includes(k) && Array.isArray(v
 const isValueHaveArgs = (val) => /:\w+/g.test(val);
 
 /**
- * @param {import('@babel/core').types} t
  * @param {import('@babel/core').NodePath} path
  * @return {string?} value param when use with call expression or tagged template expression
  */
