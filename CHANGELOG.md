@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/r17x/fetch.macro/compare/v1.7.2...v1.8.0) (2022-10-30)
+
+### Features
+
+- **swc-plugin:** remove imported fetch.macro ([0aee575](https://github.com/r17x/fetch.macro/commit/0aee575fdc5b9f188f9ac014085203a605a4ac61))
+- **swc:** basic fetch.macro feature in swc plugin ([9a06531](https://github.com/r17x/fetch.macro/commit/9a0653130da4ca726b627efc67ae826a2bd806b7))
+
 ## [1.7.2](https://github.com/r17x/fetch.macro/compare/v1.7.1...v1.7.2) (2022-10-19)
 
 ## [1.7.1](https://github.com/r17x/fetch.macro/compare/v1.7.0...v1.7.1) (2022-10-14)
