@@ -1,6 +1,12 @@
 <div align="center">
 <h1 id="toc">fetch.macro</h1>
-<p>Allows you to build fetcher function by URL at compile-time.</p>
+<p>Allows you to build <code>fetcher function</code> by URL at compile-time.</p>
+
+`f("/api/ping")`
+
+↓ ↓ ↓ ↓ ↓ ↓
+
+`(opts) => fetch("/api/ping", opts)`
 
 <p align="center">
   <a href="#usage">Usage</a>  • 
@@ -34,6 +40,32 @@
 Simply install and configure [`babel-plugin-macros`](https://github.com/kentcdodds/babel-plugin-macros) and then use `fetch.macro`.
 
 > Some project that build with `create-react-app` doesn't need extra setup for `babel-plugin-macros`.
+
+### SWC
+
+> 🚧 [Under Development] This is section for using `fetch.macro` as [swc-plugin](https://swc.rs/).
+
+<!-- acknowledgment https://github.com/pveyes/raw.macro#swc -->
+
+You can also use fetch.macro in a swc-based project (e.g: Next.js) by using the SWC plugins.
+
+Due to how the plugins loaded, you have to pass **rootDir** option pointing to the root directory of your project (where your node_modules directory lives). Typically it's enough to pass \_\_dirname.
+
+```javascript
+// next.config.js
+module.exports = {
+  experimental: {
+    swcPlugins: [
+      [
+        "fetch.macro/swc",
+        {
+          rootDir: __dirname,
+        },
+      ],
+    ],
+  },
+};
+```
 
 ### Vite
 
