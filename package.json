@@ -18,6 +18,7 @@
     "prepare": "husky install",
     "lint": "eslint",
     "format": "prettier --write --ignore-unknown",
+    "build": "yarn swc:build",
     "swc:build": "cd swc && cargo build-wasi --release",
     "swc:test": "cd swc && cargo test",
     "test": "jest"
