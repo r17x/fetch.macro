@@ -1,33 +1,131 @@
 use swc_core::{
-    ecma::transforms::testing::test,
-    ecma::visit::{as_folder, FoldWith, VisitMut},
-    ecma::ast::{Program, ModuleDecl, ModuleItem, TaggedTpl, ImportDecl},
+    common::DUMMY_SP,
+    ecma::ast::{
+        BlockStmtOrExpr, CallExpr, Callee, Expr, ExprOrSpread, Ident, ImportDecl, ImportSpecifier,
+        Lit, ModuleDecl, ModuleItem, Pat, Program, Str, TaggedTpl, TplElement,
+    },
+    ecma::visit::{Fold, FoldWith},
+    ecma::{ast::ArrowExpr, transforms::testing::test},
+    ecma::{ast::BindingIdent, atoms::JsWord},
     plugin::{plugin_transform, proxies::TransformPluginProgramMetadata},
 };
 
+pub struct FetchMacro {
+    import_specifier: String,
+}
 
-pub struct FetchMacroVisitor;
+fn ident(value: String) -> Ident {
+    Ident {
+        span: DUMMY_SP,
+        sym: JsWord::from(value),
+        optional: false,
+    }
+}
 
-impl VisitMut for FetchMacroVisitor {
-    // Implement necessary visit_mut_* methods for actual custom transform.
-    // A comprehensive list of possible visitor methods can be found here:
-    // https://rustdoc.swc.rs/swc_ecma_visit/trait.VisitMut.html
-    
-    // visit default import expression and transform to fetch function
-    // e.g f`URI`
-    fn visit_mut_tagged_tpl(&mut self, _n: &mut TaggedTpl){
-        unimplemented!();
+impl FetchMacro {
+    pub fn new() -> Self {
+        FetchMacro {
+            import_specifier: String::new(),
+        }
+    }
+
+    fn replace_with_fetch_function(&mut self, url: String) -> Expr {
+        Expr::Arrow(ArrowExpr {
+            span: DUMMY_SP,
+            params: [Pat::Ident(BindingIdent {
+                id: ident("opts".to_string()),
+                type_ann: None,
+            })]
+            .to_vec(),
+            body: BlockStmtOrExpr::Expr(Box::new(Expr::Call(CallExpr {
+                span: DUMMY_SP,
+                callee: Callee::Expr(Box::new(Expr::Ident(ident("fetch".to_string())))),
+                args: [
+                    Expr::Lit(Lit::Str(Str {
+                        span: DUMMY_SP,
+                        value: JsWord::from(url),
+                        raw: None,
+                    })),
+                    Expr::Ident(ident("opts".to_string())),
+                ]
+                .map(|f| ExprOrSpread {
+                    spread: None,
+                    expr: Box::new(f),
+                })
+                .to_vec(),
+
+                type_args: None,
+            }))),
+            is_async: false,
+            is_generator: false,
+            type_params: None,
+            return_type: None,
+        })
+    }
+}
+
+impl Fold for FetchMacro {
+    // Implement necessary fold_* methods for actual custom transform.
+    // A comprehensive list of possible fold methods can be found here:
+    // https://rustdoc.swc.rs/swc_ecma_visit/trait.Fold.html
+    fn fold_import_decl(&mut self, id: ImportDecl) -> ImportDecl {
+        let mut id = id.fold_children_with(self);
+
+        let _ = id.specifiers.iter_mut().for_each(|i| {
+            match (id.src.value.to_string().eq("fetch.macro"), i) {
+                (true, ImportSpecifier::Default(sp)) => {
+                    self.import_specifier = sp.local.sym.to_string()
+                }
+                _ => {}
+            }
+        });
+
+        id
+    }
+
+    fn fold_expr(&mut self, expr: Expr) -> Expr {
+        let expr = expr.fold_children_with(self);
+
+        match &expr {
+            Expr::TaggedTpl(TaggedTpl { tag, tpl, .. }) => match &**tag {
+                Expr::Ident(Ident { sym, .. }) => {
+                    if sym.to_string().eq(&self.import_specifier.to_string()) {
+                        match tpl.quasis.first() {
+                            Some(TplElement {
+                                cooked: Some(cooked),
+                                ..
+                            }) => {
+                                if cooked.to_string().is_empty() {
+                                    expr
+                                } else {
+                                    self.replace_with_fetch_function(cooked.to_string())
+                                }
+                            }
+                            _ => expr,
+                        }
+                    } else {
+                        expr
+                    }
+                }
+                _ => expr,
+            },
+            _ => expr,
+        }
     }
 
     // remove import source fetch.macro
-    fn visit_mut_module_items(&mut self, import_modules: &mut Vec<ModuleItem>) {
-        import_modules.retain(|m| match &m {
-            ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl {src, ..})) =>  &src.value != "fetch.macro",
+    fn fold_module_items(&mut self, ims: Vec<ModuleItem>) -> Vec<ModuleItem> {
+        let mut ims = ims.fold_children_with(self);
+
+        ims.retain(|m| match &m {
+            ModuleItem::ModuleDecl(ModuleDecl::Import(ImportDecl { src, .. })) => {
+                !src.value.to_string().eq(&"fetch.macro".to_string())
+            }
             _ => true,
         });
-        import_modules.to_vec();
-    }
 
+        ims.to_vec()
+    }
 }
 
 /// An example plugin function with macro support.
@@ -47,7 +145,7 @@ impl VisitMut for FetchMacroVisitor {
 /// Refer swc_plugin_macro to see how does it work internally.
 #[plugin_transform]
 pub fn process_transform(program: Program, _metadata: TransformPluginProgramMetadata) -> Program {
-    program.fold_with(&mut as_folder(FetchMacroVisitor))
+    program.fold_with(&mut FetchMacro::new())
 }
 
 // An example to test plugin transform.
@@ -56,7 +154,7 @@ pub fn process_transform(program: Program, _metadata: TransformPluginProgramMeta
 // unless explicitly required to do so.
 test!(
     Default::default(),
-    |_| as_folder(FetchMacroVisitor),
+    |_| FetchMacro::new(),
     boo,
     // Input codes
     r#"import f from "fetch.macro"; 
