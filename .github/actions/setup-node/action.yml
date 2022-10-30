@@ -7,6 +7,10 @@ inputs:
     description: Node.js version
     required: false
     default: "20"
+  rust_cache_enable:
+    description: enable actions/cache@v3 for rust
+    required: false
+    default: "false"
 
 runs:
   using: composite
@@ -31,3 +35,14 @@ runs:
     - name: yarn install
       shell: bash
       run: yarn --frozen-lockfile --no-progress --non-interactive --prefer-offline
+
+    - uses: actions/cache@v3
+      if: ${{ inputs.rust_cache_enable }}
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
