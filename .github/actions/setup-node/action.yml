@@ -12,16 +12,18 @@ runs:
   using: composite
   steps:
     - name: Checkout all commits
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Setup git user to "anakmagang"
       shell: bash
-      run: git config user.email "anakmagang@evilfactorylabs.org" && git config user.name "anakmagang"
+      run: |
+        git config user.email "anakmagang@evilfactorylabs.org"
+        git config user.name "anakmagang"
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         cache: yarn
         node-version: ${{ inputs.node_version }}
