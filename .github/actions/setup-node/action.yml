@@ -41,9 +41,9 @@ runs:
       if: ${{ inputs.rust_cache_enable }}
       with:
         path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
+          **/.cargo/bin/
+          **/.cargo/registry/index/
+          **/.cargo/registry/cache/
+          **/.cargo/git/db/
           **/target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
