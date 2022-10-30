@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+      - next
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -78,7 +79,7 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
 
       - name: Semantic Release
