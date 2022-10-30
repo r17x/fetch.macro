@@ -49,6 +49,23 @@ jobs:
           target: wasm32-wasi
 
       - name: run test swc
+        run: yarn swc:test
+
+  build:
+    needs:
+      - validate
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/setup-node
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          target: wasm32-wasi
+
+      - name: run build swc
         run: yarn swc:build
 
   release:
