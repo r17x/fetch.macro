@@ -37,6 +37,7 @@ runs:
       run: yarn --frozen-lockfile --no-progress --non-interactive --prefer-offline
 
     - uses: actions/cache@v3
+      id: "rust_cache_hits"
       if: ${{ inputs.rust_cache_enable }}
       with:
         path: |
@@ -44,5 +45,5 @@ runs:
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
-          target/
+          **/target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
