@@ -11,7 +11,7 @@ jobs:
   init:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
       - uses: wagoid/commitlint-github-action@v4
         env:
@@ -21,7 +21,7 @@ jobs:
     needs: init
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
 
       - name: validate (lint)
@@ -30,7 +30,7 @@ jobs:
     needs: init
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
         with:
           rust_cache_enable: true
@@ -59,7 +59,7 @@ jobs:
       - test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
         with:
           rust_cache_enable: true
@@ -82,7 +82,7 @@ jobs:
       - uses: ./.github/actions/setup-node
 
       - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v3
         with:
           semantic_version: 19.0.2
           branches: |
