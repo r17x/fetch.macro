@@ -10,8 +10,7 @@ crate-type = ["cdylib"]
 lto = true
 
 [dependencies]
-serde = "1"
-swc_core = { version = "0.20.*", features = ["plugin_transform"] }
+swc_core = { version = "0.29.*", features = ["plugin_transform"] }
 
 # .cargo/config defines few alias to build plugin.
 # cargo build-wasi generates wasm-wasi32 binary

@@ -25,9 +25,10 @@
     "prepare": "husky install",
     "lint": "eslint",
     "format": "prettier --write --ignore-unknown",
+    "prepack": "yarn build",
     "build": "yarn swc:build",
-    "swc:build": "cd swc && cargo build-wasi --release",
-    "swc:test": "cd swc && cargo test",
+    "swc:build": "cargo build --manifest-path ./swc/Cargo.toml --release --target=wasm32-wasi",
+    "swc:test": "cargo test --manifest-path ./swc/Cargo.toml",
     "test": "jest"
   },
   "prettier": {
