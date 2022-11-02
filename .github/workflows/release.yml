@@ -17,7 +17,6 @@ jobs:
       - uses: wagoid/commitlint-github-action@v4
         env:
           NODE_PATH: ${{ github.workspace }}/node_modules
-
   validate:
     needs: init
     runs-on: ubuntu-latest
@@ -81,6 +80,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup-node
+        with:
+          rust_cache_enable: true
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
