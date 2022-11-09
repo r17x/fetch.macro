@@ -2,9 +2,9 @@ use swc_core::{
     common::DUMMY_SP,
     ecma::{
         ast::{
-            ArrowExpr, AssignPatProp, BindingIdent, BlockStmtOrExpr, CallExpr, Callee, Expr,
-            ExprOrSpread, Ident, ImportDecl, ImportSpecifier, MemberExpr, MemberProp, ModuleDecl,
-            ModuleItem, ObjectPat, ObjectPatProp, Pat, Program, TaggedTpl,
+            ArrowExpr, BindingIdent, BlockStmtOrExpr, CallExpr, Callee, Expr, ExprOrSpread, Ident,
+            ImportDecl, ImportSpecifier, MemberExpr, MemberProp, ModuleDecl, ModuleItem, Pat,
+            Program, TaggedTpl,
         },
         atoms::JsWord,
         transforms::testing::test,
@@ -35,6 +35,7 @@ fn pat_bind_indent(value: String) -> Pat {
 fn args_of_fetch(arg: ExprOrSpread) -> Vec<ExprOrSpread> {
     vec![
         // @TODO parse string url to be object params
+        // /api/user/:username ({username, ...opts}) => fetch(`/api/user/{username}`)
         arg,
         ExprOrSpread {
             spread: None,
@@ -44,23 +45,18 @@ fn args_of_fetch(arg: ExprOrSpread) -> Vec<ExprOrSpread> {
 }
 
 fn arrow_obj_pattern(prop: String) -> Expr {
-    let identifier = ident(prop);
+    let identifier = ident(prop.to_owned());
 
     Expr::Arrow(ArrowExpr {
         span: DUMMY_SP,
-        params: vec![Pat::Object(ObjectPat {
-            span: DUMMY_SP,
-            props: vec![ObjectPatProp::Assign(AssignPatProp {
-                span: DUMMY_SP,
-                key: identifier.to_owned(),
-                value: None,
-            })],
-            optional: false,
-            type_ann: None,
-        })],
+        params: vec![pat_bind_indent("r".to_string())],
         body: BlockStmtOrExpr::Expr(Box::new(Expr::Call(CallExpr {
             span: DUMMY_SP,
-            callee: Callee::Expr(Box::new(Expr::Ident(identifier.to_owned()))),
+            callee: Callee::Expr(Box::new(Expr::Member(MemberExpr {
+                span: DUMMY_SP,
+                obj: Box::new(Expr::Ident(ident("r".to_string()))),
+                prop: MemberProp::Ident(identifier),
+            }))),
             args: vec![],
             type_args: None,
         }))),
@@ -144,6 +140,7 @@ impl Fold for FetchMacro {
 
         match &expr {
             Expr::TaggedTpl(TaggedTpl { tag, tpl, .. }) => match &**tag {
+                // pattern for match with {f`<url>`}
                 Expr::Ident(Ident { sym, .. }) => {
                     if sym.to_string().eq(&self.import_specifier.to_string()) {
                         self.replace_with_fetch_function(
@@ -157,18 +154,40 @@ impl Fold for FetchMacro {
                         expr
                     }
                 }
+                // pattern for match with {f.<ResponseType>`<url>`}
+                // available <ResponseType>:
+                // * json
+                // * text
+                // * blob
+                // * arrayBuffer
+                // * formData
+                // * clone
                 Expr::Member(member_expr) => match &*member_expr.obj {
                     Expr::Ident(Ident { sym, .. }) => {
-                        if sym.to_string().eq(&self.import_specifier.to_string()) {
-                            self.replace_with_fetch_function(
-                                args_of_fetch(ExprOrSpread {
-                                    spread: None,
-                                    expr: Box::new(Expr::Tpl(tpl.to_owned())),
-                                }),
-                                Some(member_expr.to_owned()),
-                            )
-                        } else {
-                            expr
+                        match (
+                            sym.to_string().eq(&self.import_specifier.to_string()),
+                            &member_expr.prop,
+                        ) {
+                            (true, MemberProp::Ident(Ident { sym: member, .. })) => match (
+                                &sym.to_string().eq(&self.import_specifier),
+                                &member.to_string() as &str,
+                            ) {
+                                (
+                                    true,
+                                    "json" | "text" | "blob" | "arrayBuffer" | "formData" | "clone",
+                                ) => self.replace_with_fetch_function(
+                                    args_of_fetch(ExprOrSpread {
+                                        spread: None,
+                                        expr: Box::new(Expr::Tpl(tpl.to_owned())),
+                                    }),
+                                    Some(member_expr.to_owned()),
+                                ),
+                                (true, _) => {
+                                    panic!("available specifiers: 'json' | 'text' | 'blob' | 'arrayBuffer' | 'formData' | 'clone'");
+                                }
+                                _ => expr,
+                            },
+                            _ => expr,
                         }
                     }
                     _ => expr,
@@ -265,7 +284,7 @@ const fetcher = f.json`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({json}) => json());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.json());"#
 );
 
 test!(
@@ -279,7 +298,7 @@ const fetcher = f.text`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({text}) => text());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.text());"#
 );
 
 test!(
@@ -293,7 +312,7 @@ const fetcher = f.blob`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({blob}) => blob());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.blob());"#
 );
 
 test!(
@@ -307,7 +326,7 @@ const fetcher = f.formData`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({formData}) => formData());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.formData());"#
 );
 
 test!(
@@ -321,7 +340,7 @@ const fetcher = f.arrayBuffer`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({arrayBuffer}) => arrayBuffer());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.arrayBuffer());"#
 );
 
 test!(
@@ -335,5 +354,22 @@ const fetcher = f.clone`${urlVar}`;"#,
     // Output codes after transformed with plugin
     r#"
 const urlVar = "/api/v1/ping";
-const fetcher = (opts) => fetch(`${urlVar}`, opts).then(({clone}) => clone());"#
+const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.clone());"#
 );
+
+// @TODO should panic assertation
+// test!(
+//     Default::default(),
+//     |_| FetchMacro::new(),
+//     fetch_unknown,
+//     // Input codes
+//     r#"import f from "fetch.macro";
+// const urlVar = "/api/v1/ping";
+// const fetcher = f.cloneX`${urlVar}`;
+// "#,
+//     // Output codes after transformed with plugin
+//     r#"
+// const urlVar = "/api/v1/ping";
+// const fetcher = f.cloneX`${urlVar}`;
+// "#
+// );
