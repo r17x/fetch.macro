@@ -32,6 +32,13 @@ runs:
         cache: yarn
         node-version: ${{ inputs.node_version }}
 
+    - name: rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        profile: minimal
+        target: wasm32-wasi
+
     - name: yarn install
       shell: bash
       run: yarn --frozen-lockfile --no-progress --non-interactive --prefer-offline
@@ -45,5 +52,6 @@ runs:
           ~/.cargo/registry/index/
           ~/.cargo/registry/cache/
           ~/.cargo/git/db/
-          **/target/
+          /usr/share/rust/.rustup
+          **/target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
