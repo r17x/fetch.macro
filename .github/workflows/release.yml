@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
       - uses: wagoid/commitlint-github-action@v4
         env:
           NODE_PATH: ${{ github.workspace }}/node_modules
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
 
       - name: validate (lint)
         run: yarn lint
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
         with:
           rust_cache_enable: true
 
@@ -40,12 +40,6 @@ jobs:
 
       - name: test run generator API markdown
         run: .husky/generate-api-md
-
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
-          target: wasm32-wasi
 
       - name: run test swc
         run: yarn swc:test
@@ -60,18 +54,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
         with:
           rust_cache_enable: true
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          profile: minimal
-          target: wasm32-wasi
-
       - name: run build
         run: yarn build
+
+      - name: run build swc
+        run: yarn swc:build
 
   release:
     needs:
@@ -79,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
         with:
           rust_cache_enable: true
 
