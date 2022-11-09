@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/r17x/fetch.macro/compare/v1.8.1...v1.9.0) (2022-11-09)
+
+### Features
+
+- **swc:** support more response data ([018f778](https://github.com/r17x/fetch.macro/commit/018f778274815bc9941c879348969ca8f14fa73d))
+
 ## [1.8.1](https://github.com/r17x/fetch.macro/compare/v1.8.0...v1.8.1) (2022-10-31)
 
 # [1.8.0](https://github.com/r17x/fetch.macro/compare/v1.7.2...v1.8.0) (2022-10-30)
