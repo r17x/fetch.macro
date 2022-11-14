@@ -25,7 +25,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: validate (lint)
-        run: yarn lint
+        run: yarn turbo lint
   test:
     needs: init
     runs-on: ubuntu-latest
@@ -36,13 +36,12 @@ jobs:
           rust_cache_enable: true
 
       - name: run test
-        run: yarn test --collectCoverage
+        run: yarn turbo test
+        env:
+          NODE_ENV: test
 
       - name: test run generator API markdown
         run: .husky/generate-api-md
-
-      - name: run test swc
-        run: yarn swc:test
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -59,10 +58,7 @@ jobs:
           rust_cache_enable: true
 
       - name: run build
-        run: yarn build
-
-      - name: run build swc
-        run: yarn swc:build
+        run: yarn turbo build
 
   release:
     needs:
