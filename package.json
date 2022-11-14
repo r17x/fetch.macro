@@ -25,11 +25,9 @@
     "prepare": "husky install",
     "lint": "eslint",
     "format": "prettier --write --ignore-unknown",
-    "prepack": "yarn build",
-    "build": "yarn swc:build",
-    "swc:build": "cargo build --manifest-path ./swc/Cargo.toml --release --target=wasm32-wasi",
+    "build": "cargo build --manifest-path ./swc/Cargo.toml --release --target=wasm32-wasi",
     "swc:test": "cargo test --manifest-path ./swc/Cargo.toml",
-    "test": "jest"
+    "test": "jest && yarn swc:test"
   },
   "prettier": "@kodingdotninja/style-guide/prettier",
   "lint-staged": {
@@ -79,6 +77,7 @@
     "remark": "^14",
     "remark-gfm": "^3",
     "semantic-release": "19.0.2",
+    "turbo": "^1.6.3",
     "unist-builder": "^3"
   }
 }
