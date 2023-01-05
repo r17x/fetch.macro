@@ -48,6 +48,11 @@
     "testMatch": [
       "**/tests/**/*.[jt]s?(x)"
     ],
+    "transform": {
+      "^.+\\.(t|j)sx?$": [
+        "@swc/jest"
+      ]
+    },
     "testPathIgnorePatterns": [
       "/node_modules/",
       "tests/create-tests.js",
