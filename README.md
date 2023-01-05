@@ -55,14 +55,7 @@ Due to how the plugins loaded, you have to pass **rootDir** option pointing to t
 // next.config.js
 module.exports = {
   experimental: {
-    swcPlugins: [
-      [
-        "fetch.macro/swc",
-        {
-          rootDir: __dirname,
-        },
-      ],
-    ],
+    swcPlugins: [["fetch.macro/swc"]],
   },
 };
 ```
