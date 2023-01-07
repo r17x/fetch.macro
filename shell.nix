@@ -1,26 +1,14 @@
-# https://nixos.org/download.html
-{ pkgs ? import <nixpkgs> {
-    overlays = [
-      (import (builtins.fetchTarball "https://github.com/oxalica/rust-overlay/archive/master.tar.gz"))
-    ];
-  }
-}:
-
-pkgs.mkShell {
-  name = "fetch.macro";
-
-  buildInputs = with pkgs; [
-    python27
-    (rust-bin.stable.latest.minimal.override {
-      extensions = [ "rustc" ];
-      targets = [ "wasm32-wasi" ];
-    })
-  ];
-
-  packages = with pkgs; [
-    nodejs-16_x
-    (yarn.overrideAttrs (oldAttrs: {
-      buildInputs = [ nodejs-16_x ]; # sync nodejs version in yarn
-    }))
-  ];
-}
+# See https://nixos.wiki/wiki/Flakes#Using_flakes_project_from_a_legacy_Nix
+(import
+  (
+    let
+      lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+    in
+    fetchTarball {
+      url = "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+      sha256 = lock.nodes.flake-compat.locked.narHash;
+    }
+  )
+  {
+    src = ./.;
+  }).shellNix

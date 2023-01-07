@@ -12,6 +12,9 @@ lto = true
 [dependencies]
 swc_core = { version = "0.29.*", features = ["plugin_transform"] }
 
-# .cargo/config defines few alias to build plugin.
+# [alias]
 # cargo build-wasi generates wasm-wasi32 binary
 # cargo build-wasm32 generates wasm32-unknown-unknown binary.
+# Alias to build actual plugin binary for the specified target.
+# build-wasi = "build --target wasm32-wasi"
+# build-wasm32 = "build --target wasm32-unknown-unknown"
