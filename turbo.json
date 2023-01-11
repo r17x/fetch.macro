@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "inputs": ["**/src/*.rs"],
+      "outputs": ["swc/target/**"]
+    },
+    "test": {
+      "inputs": ["**/tests/**", "**/src/*.rs"],
+      "outputs": ["swc/target/**"]
+    },
+    "lint": {
+      "outputs": []
+    }
+  }
+}

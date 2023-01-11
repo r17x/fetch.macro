@@ -7,49 +7,68 @@ on:
   pull_request:
     branches:
       - main
+      - next
 jobs:
   init:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
       - uses: wagoid/commitlint-github-action@v4
         env:
           NODE_PATH: ${{ github.workspace }}/node_modules
-
   validate:
     needs: init
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
 
       - name: validate (lint)
-        run: yarn lint
+        run: yarn turbo lint
   test:
     needs: init
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
+        with:
+          rust_cache_enable: true
 
       - name: run test
-        run: yarn test --collectCoverage
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        run: yarn turbo test
+        env:
+          NODE_ENV: test
 
       - name: test run generator API markdown
         run: .husky/generate-api-md
 
-  release:
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+  build:
     needs:
       - validate
       - test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/setup
+        with:
+          rust_cache_enable: true
+
+      - name: run build
+        run: yarn turbo build
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+        with:
+          rust_cache_enable: true
 
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3

@@ -4,21 +4,29 @@
   "author": "r17x <hi@rin.rocks>",
   "homepage": "https://github.com/r17x/fetch.macro",
   "repository": "https://github.com/r17x/fetch.macro",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "keywords": [
     "babel-plugin-macros",
+    "babel-plugins",
+    "swc-plugins",
     "fetch"
   ],
   "main": "src/fetch.macro.js",
+  "exports": {
+    ".": "./src/fetch.macro.js",
+    "./swc": "./swc/target/wasm32-wasi/release/swc_plugin_fetch_macro.wasm"
+  },
   "files": [
-    "src/fetch.macro.js"
+    "src/fetch.macro.js",
+    "swc/target/wasm32-wasi/release/swc_plugin_fetch_macro.wasm"
   ],
   "license": "MIT",
   "scripts": {
-    "prepare": "husky install",
     "lint": "eslint",
     "format": "prettier --write --ignore-unknown",
-    "test": "jest"
+    "build": "cargo build --manifest-path ./swc/cargo.toml --release --target=wasm32-wasi",
+    "swc:test": "cargo test --manifest-path ./swc/Cargo.toml",
+    "test": "jest && yarn swc:test"
   },
   "prettier": {
     "endOfLine": "auto",
@@ -81,6 +89,7 @@
     "remark-gfm": "^3",
     "remark-prettier": "^2",
     "semantic-release": "19.0.2",
+    "turbo": "^1.6.3",
     "unist-builder": "^3"
   }
 }
