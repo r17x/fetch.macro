@@ -1,10 +1,12 @@
 {
   inputs = {
-    nixpkgs.follows = "cargo2nix/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.11.0";
+    cargo2nix.inputs.nixpkgs.follows = "nixpkgs";
     # rust-overlay.url = "github:oxalica/rust-overlay";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: with inputs;
@@ -19,18 +21,14 @@
 
         nodePackagesOverlays = [
           (final: prev: {
-            # make nodejs same version with all nodePackages.<PKGS_NAME>
-            # (e.g: nodePackages.yarn)
-            nodejs = final.nodejs-16_x;
-            nodePackages = prev.nodePackages.override {
-              nodejs = final.nodejs-16_x;
-            };
+            nodejs = prev.nodejs-16_x;
           })
         ];
 
         pkgs = import nixpkgs {
           inherit system;
-          overlays = rustPackagesOverlays ++ nodePackagesOverlays;
+          overlays = rustPackagesOverlays
+            ++ nodePackagesOverlays;
         };
 
         pkgs-wasm = import nixpkgs {
@@ -40,7 +38,8 @@
             # Nixpkgs currently only supports LLVM lld linker for wasm32-wasi.
             useLLVM = true;
           };
-          overlays = rustPackagesOverlays ++ nodePackagesOverlays;
+          overlays = rustPackagesOverlays
+            ++ nodePackagesOverlays;
         };
 
         rustVersion = "1.61.0";
@@ -88,7 +87,7 @@
         # OR with current shell
         #
         # nix develop -C $SHELL 
-        devShells.default = (rustPkgs.workspaceShell { }).overrideAttrs (oldAttrs: {
+        devShells.default = rustPkgs.workspaceShell {
           name = "fetch_macro-devShell";
 
           shellHook = ''
@@ -105,9 +104,9 @@
           packages = with pkgs; [
             nodejs
             nodePackages.yarn
-            cargo2nix
+            # pkgs.cargo2nix
           ];
-        });
+        };
 
         packages = {
           swc_plugin_fetch_macro = (rustPkgs.workspace.swc_plugin_fetch_macro { }).bin;
