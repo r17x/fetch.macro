@@ -1131,8 +1131,8 @@
 
 "@semantic-release/changelog@semantic-release/changelog":
   version "0.0.0-development"
-  uid d5cc632ebf1e1d280193ddf54514fb8d418d316a
-  resolved "https://codeload.github.com/semantic-release/changelog/tar.gz/d5cc632ebf1e1d280193ddf54514fb8d418d316a"
+  uid "9bf4300b560852cfb7c19ba566186d8b88e509f0"
+  resolved "https://codeload.github.com/semantic-release/changelog/tar.gz/9bf4300b560852cfb7c19ba566186d8b88e509f0"
   dependencies:
     "@semantic-release/error" "^3.0.0"
     aggregate-error "^3.0.0"
