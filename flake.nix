@@ -21,7 +21,7 @@
 
         nodePackagesOverlays = [
           (final: prev: {
-            nodejs = prev.nodejs-16_x;
+            nodejs = prev.nodejs-18_x;
           })
         ];
 
