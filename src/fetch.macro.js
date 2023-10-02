@@ -43,7 +43,7 @@ const getValue = (path) =>
     [true]: () => null,
     [path.isCallExpression()]: () => path.node.arguments[0].value,
     [path.isTaggedTemplateExpression()]: () => path.node.quasi.quasis[0].value.cooked,
-  }.true());
+  }).true();
 
 /**
  * @param {string} ref
@@ -58,7 +58,7 @@ const memberExpressionTemplate = (ref) =>
     [ref === REFERENCES[4]]: ".then(r => r.formData())",
     [ref === REFERENCES[5]]: ".then(r => r.arrayBuffer())",
     [ref === REFERENCES[6]]: ".then(r => r.clone())",
-  }.true);
+  }).true;
 
 /** @type { import('babel-plugin-macros').MacroHandler } */
 const fetchMacro = ({ babel: { types: t, template }, references }) => {
