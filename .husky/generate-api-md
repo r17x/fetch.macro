@@ -24,10 +24,10 @@ const table = (input, out) => `
 
 \`\`\`javascript
 ${input
-  .trim()
-  .replace(/\s{2,}/g, "\n")
-  .replace(/\t/gm, "")
-  .replace(/\.\.\/src\//g, "")}
+    .trim()
+    .replace(/\s{2,}/g, "\n")
+    .replace(/\t/gm, "")
+    .replace(/\.\.\/src\//g, "")}
 \`\`\`
 
 </td>
@@ -36,9 +36,9 @@ ${input
 
 \`\`\`javascript
 ${out
-  .trim()
-  .replace(/\s{2,}/g, "\n")
-  .replace(/\t/gm, "")}
+    .trim()
+    .replace(/\s{2,}/g, "\n")
+    .replace(/\t/gm, "")}
 \`\`\`
 
 </td>
@@ -49,11 +49,11 @@ ${out
 
 const caseToMD =
   (u, fromMD) =>
-  ({ name: title, description, code, output }) => [
-    u("heading", { depth: 3 }, [u("text", title)]),
-    u("paragraph", fromMD(description || "").children),
-    u("html", { value: table(code, output) }),
-  ];
+    ({ name: title, description, code, output }) => [
+      u("heading", { depth: 3 }, [u("text", title)]),
+      u("paragraph", fromMD(description || "").children),
+      u("html", { value: table(code, output) }),
+    ];
 
 Promise.all([
   import("remark"),
