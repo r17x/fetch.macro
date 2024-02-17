@@ -317,8 +317,11 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 [\[Back to the Table of Contents\] ↑](#toc)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -337,6 +340,7 @@ const fetchProject = ({ id, projectId, others, ...opts }) =>
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

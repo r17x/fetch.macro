@@ -49,38 +49,39 @@ ${out
 
 const caseToMD =
   (u, fromMD) =>
-  ({ name: title, description, code, output }) =>
-    [
-      u("heading", { depth: 3 }, [u("text", title)]),
-      u("paragraph", fromMD(description || "").children),
-      u("html", { value: table(code, output) }),
-    ];
+  ({ name: title, description, code, output }) => [
+    u("heading", { depth: 3 }, [u("text", title)]),
+    u("paragraph", fromMD(description || "").children),
+    u("html", { value: table(code, output) }),
+  ];
 
 Promise.all([
   import("remark"),
   import("remark-gfm"),
-  import("remark-prettier"),
   import("unist-builder"),
   import("mdast-util-heading-range"),
   import("mdast-util-from-markdown"),
   fs.readFile(target, { encoding: "utf8" }),
 ])
-  .then(
-    ([
-      { remark },
-      { default: remarkGFM },
-      { default: remarkPrettier },
-      { u },
-      { headingRange },
-      { fromMarkdown },
-      input,
-    ]) => [remark, remarkGFM, remarkPrettier, u, headingRange, fromMarkdown, input],
-  )
-  .then(([remark, remarkGFM, remarkPrettier, u, headingRange, fromMarkdown, input]) =>
+  .then(([{ remark }, { default: remarkGFM }, { u }, { headingRange }, { fromMarkdown }, input]) => [
+    remark,
+    remarkGFM,
+    u,
+    headingRange,
+    fromMarkdown,
+    input,
+  ])
+  .then(([remark, remarkGFM, u, headingRange, fromMarkdown, input]) =>
     remark()
       .use(remarkGFM)
       .use(replaceAPISection(headingRange, caseAPI.flatMap(caseToMD(u, fromMarkdown))))
-      .use(remarkPrettier)
       .process(input),
   )
-  .then(({ value: data }) => fs.writeFile(target, data));
+  .then(({ value: data }) =>
+    import("prettier").then(({ format, resolveConfig }) =>
+      resolveConfig("@kodingdotninja/style-guide/prettier").then((options) =>
+        format(data, { ...(options || {}), parser: "markdown" }),
+      ),
+    ),
+  )
+  .then((data) => fs.writeFile(target, data));

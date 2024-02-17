@@ -67,7 +67,6 @@
     "prettier": "^3",
     "remark": "^14",
     "remark-gfm": "^3",
-    "remark-prettier": "^2",
     "semantic-release": "19.0.2",
     "unist-builder": "^3"
   }
