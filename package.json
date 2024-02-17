@@ -20,19 +20,7 @@
     "format": "prettier --write --ignore-unknown",
     "test": "jest"
   },
-  "prettier": {
-    "endOfLine": "auto",
-    "printWidth": 120,
-    "semi": true,
-    "singleQuote": false,
-    "trailingComma": "all"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint-config-kdnj"
-    ],
-    "root": true
-  },
+  "prettier": "@kodingdotninja/style-guide/prettier",
   "lint-staged": {
     "*": "prettier --ignore-unknown --write",
     "tests/test-cases.js": [
@@ -70,13 +58,13 @@
     "commitlint-config-squash-pr": "1.1.0",
     "cross-env": "^7",
     "eslint": "^8",
-    "eslint-config-kdnj": "^2",
+    "@kodingdotninja/style-guide": "^4",
     "husky": "^8",
     "jest": "^29",
     "lint-staged": "^13",
     "mdast-util-from-markdown": "^1",
     "mdast-util-heading-range": "^3",
-    "prettier": "^2",
+    "prettier": "^3",
     "remark": "^14",
     "remark-gfm": "^3",
     "remark-prettier": "^2",
