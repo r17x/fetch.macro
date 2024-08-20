@@ -4,9 +4,9 @@ use swc_core::{
         ast::{
             ArrowExpr, BindingIdent, BlockStmtOrExpr, CallExpr, Callee, Expr, ExprOrSpread, Ident,
             ImportDecl, ImportSpecifier, MemberExpr, MemberProp, ModuleDecl, ModuleItem, Pat,
-            Program, TaggedTpl,
+            Program, TaggedTpl, Tpl, TplElement,
         },
-        atoms::JsWord,
+        atoms::{Atom, JsWord},
         transforms::testing::test,
         visit::{Fold, FoldWith},
     },
@@ -32,11 +32,54 @@ fn pat_bind_indent(value: String) -> Pat {
     })
 }
 
+fn split_by_pattern<'a>(s: &'a str, pattern: &'a str) -> (Vec<str>, Vec<str>) {
+  let quasis: Vec<str> = s.to_owned().split(pattern).collect();
+  let expressions = quasis.iter().map(|s| s.replace(pattern, "")).collect();
+  return (quasis, expressions)
+}
+
+fn str_to_url_tpl_element(value: String) -> ExprOrSpread {
+    let value = value.to_owned();
+    let (quasis, expressions) = split_by_pattern(value.as_ref(), ":");
+    ExprOrSpread {
+       spread: None,
+       expr: Box::new(Expr::Tpl(Tpl { span: DUMMY_SP, 
+            exprs: value.to_owned().split('/')
+        .filter_map(|s| if s.starts_with(':') { 
+            Some(Box::new(Expr::Ident(ident(s.replace(':', ""))))) }
+            else { None }
+        )
+        .collect(), 
+            quasis: value.to_owned().split('/')
+        .filter_map(|s| if !s.starts_with(':') {
+                Some(TplElement { 
+                    span: DUMMY_SP, 
+                    raw: Default::default(), 
+                    cooked: Some(Atom::new(s)), 
+                    tail: Default::default() })
+                } else {None})
+                        
+        .collect()
+        })),
+    }
+}
+
 fn args_of_fetch(arg: ExprOrSpread) -> Vec<ExprOrSpread> {
+    let arg = match *arg.clone().expr{
+            Expr::Tpl(Tpl{ quasis, .. }) => match &quasis.first() {
+                None => arg,
+                Some(tlp_element)  => match tlp_element {
+                    TplElement{tail: true, cooked: Some(atom), ..} => if atom.to_string().contains(':'){ 
+                    str_to_url_tpl_element(atom.to_string()) 
+                }  else { arg },
+                    _=> arg
+                },
+            },
+        _=>arg
+    };
+
     vec![
-        // @TODO parse string url to be object params
-        // /api/user/:username ({username, ...opts}) => fetch(`/api/user/{username}`)
-        arg,
+        arg.to_owned(),
         ExprOrSpread {
             spread: None,
             expr: Box::new(Expr::Ident(ident("opts".to_string()))),
@@ -355,6 +398,18 @@ const fetcher = f.clone`${urlVar}`;"#,
     r#"
 const urlVar = "/api/v1/ping";
 const fetcher = (opts) => fetch(`${urlVar}`, opts).then((r) => r.clone());"#
+);
+
+test!(
+    Default::default(),
+    |_| FetchMacro::new(),
+    fetch_json_with_param_pattern,
+    // Input codes
+    r#"import f from "fetch.macro"; 
+const fetcher = f.json`https://api.github.com/users/:username`;"#,
+    // Output codes after transformed with plugin
+    r#"
+const fetcher = ({username, ...opts}) => fetch(`https://api.github.com/users/${username}`, opts).then((r) => r.json());"#
 );
 
 // @TODO should panic assertation
