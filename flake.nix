@@ -31,16 +31,16 @@
             ++ nodePackagesOverlays;
         };
 
-        pkgs-wasm = import nixpkgs {
-          inherit system;
-          crossSystem = {
-            config = "wasm32-wasi";
-            # Nixpkgs currently only supports LLVM lld linker for wasm32-wasi.
-            useLLVM = true;
-          };
-          overlays = rustPackagesOverlays
-            ++ nodePackagesOverlays;
-        };
+        #pkgs-wasm = import nixpkgs {
+        #  inherit system;
+        #  crossSystem = {
+        #    config = "wasm32-wasi";
+        #    # Nixpkgs currently only supports LLVM lld linker for wasm32-wasi.
+        #    useLLVM = true;
+        #  };
+        #  overlays = rustPackagesOverlays
+        #    ++ nodePackagesOverlays;
+        #};
 
         rustVersion = "1.61.0";
 
