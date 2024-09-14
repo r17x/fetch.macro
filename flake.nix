@@ -9,9 +9,12 @@
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs: with inputs;
+  outputs =
+    inputs:
+    with inputs;
 
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
 
         rustPackagesOverlays = [
@@ -19,16 +22,11 @@
           # rust-overlay.overlays.default
         ];
 
-        nodePackagesOverlays = [
-          (final: prev: {
-            nodejs = prev.nodejs-18_x;
-          })
-        ];
+        nodePackagesOverlays = [ (final: prev: { nodejs = prev.nodejs-18_x; }) ];
 
         pkgs = import nixpkgs {
           inherit system;
-          overlays = rustPackagesOverlays
-            ++ nodePackagesOverlays;
+          overlays = rustPackagesOverlays ++ nodePackagesOverlays;
         };
 
         #pkgs-wasm = import nixpkgs {
@@ -64,10 +62,10 @@
         };
 
         rustPkgs = pkgs.rustBuilder.makePackageSet rustPackageSets;
-        # TODO
-        # cargo2nix targeted to wasm32-wasi
-        # rustPkgs-wasm = pkgs-wasm.rustBuilder.makePackageSet rustPackageSets;
       in
+      # TODO
+      # cargo2nix targeted to wasm32-wasi
+      # rustPkgs-wasm = pkgs-wasm.rustBuilder.makePackageSet rustPackageSets;
       rec {
         # nix flake check
         checks = {
@@ -90,20 +88,23 @@
         devShells.default = rustPkgs.workspaceShell {
           name = "fetch_macro-devShell";
 
-          shellHook = ''
-            echo "Welcome to fetch.macro devShell 🛠️"
-            echo ""
-            echo "Commands -------------------------"
-            echo "  yarn build - to build swc_plugin_fetch_macro."
-            echo "  yarn test  - to run test for fetch.macro in nodejs and rust."
-            echo "----------------------------------"
-            echo ""
-            echo "pre-commit-hooks status:"
-          '' + checks.pre-commit-check.shellHook;
+          shellHook =
+            ''
+              echo "Welcome to fetch.macro devShell 🛠️"
+              echo ""
+              echo "Commands -------------------------"
+              echo "  yarn build - to build swc_plugin_fetch_macro."
+              echo "  yarn test  - to run test for fetch.macro in nodejs and rust."
+              echo "----------------------------------"
+              echo ""
+              echo "pre-commit-hooks status:"
+            ''
+            + checks.pre-commit-check.shellHook;
 
           packages = with pkgs; [
             nodejs
             nodePackages.yarn
+            bun
             # pkgs.cargo2nix
           ];
         };
