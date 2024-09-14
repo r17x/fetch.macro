@@ -1,0 +1,8 @@
+{
+  "name": "fetch-intercept",
+  "version": "0.0.0",
+  "packageManager": "yarn@4.1.0",
+  "files": [
+    "dist"
+  ]
+}
