@@ -1,3 +1,5 @@
+## [1.9.3](https://github.com/r17x/fetch.macro/compare/v1.9.2...v1.9.3) (2024-11-15)
+
 ## [1.9.2](https://github.com/r17x/fetch.macro/compare/v1.9.1...v1.9.2) (2024-04-08)
 
 ## [1.9.1](https://github.com/r17x/fetch.macro/compare/v1.9.0...v1.9.1) (2024-02-17)
